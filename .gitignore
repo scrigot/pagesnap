@@ -1,0 +1,12 @@
+node_modules/
+dist/
+dist-e2e/
+coverage/
+test-results/
+playwright-report/
+research/results/
+*.zip
+.DS_Store
+__pycache__/
+.venv/
+*.pyc

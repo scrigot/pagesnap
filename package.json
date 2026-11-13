@@ -1,0 +1,44 @@
+{
+  "name": "pagesnap",
+  "version": "0.1.0",
+  "description": "One-click full-page screenshots for Chrome, copied straight to the clipboard. Local-first.",
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "build:e2e": "node scripts/build.mjs --e2e",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint .",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:e2e": "npm run build:e2e && playwright test",
+    "bench": "npm run build:e2e && node scripts/bench.mjs",
+    "package": "npm run build && cd dist && zip -qr ../pagesnap.zip .",
+    "check": "npm run typecheck && npm run lint && npm run format:check && npm test && npm run build"
+  },
+  "keywords": [
+    "chrome-extension",
+    "screenshot",
+    "full-page",
+    "clipboard",
+    "manifest-v3"
+  ],
+  "license": "MIT",
+  "devDependencies": {
+    "@eslint/js": "^9.39.5",
+    "@playwright/test": "^1.63.0",
+    "@types/chrome": "^0.3.7",
+    "@types/node": "^26.6.6",
+    "eslint": "^9.39.5",
+    "prettier": "^3.10.1",
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^8.72.2",
+    "vite": "^6.4.6",
+    "vitest": "^3.2.7"
+  },
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  }
+}

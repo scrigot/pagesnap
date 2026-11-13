@@ -1,0 +1,7 @@
+dist
+dist-e2e
+coverage
+test-results
+playwright-report
+research/results
+package-lock.json
