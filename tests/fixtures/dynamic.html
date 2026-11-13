@@ -1,0 +1,30 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <script src="bands.js"></script>
+    <style>
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+    <title>Dynamic</title>
+  </head>
+  <body>
+    <div id="c"></div>
+    <script>
+      // Infinite-scroll style: append 10 bands whenever the bottom comes into view, up to 60.
+      let n = 20;
+      renderBands(c, 0, n);
+      addEventListener('scroll', () => {
+        if (n < 60 && scrollY + innerHeight >= document.documentElement.scrollHeight - 200) {
+          renderBands(c, n, n + 10);
+          n += 10;
+        }
+      });
+    </script>
+  </body>
+</html>

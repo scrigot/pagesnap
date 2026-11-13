@@ -1,0 +1,50 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <script src="bands.js"></script>
+    <style>
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+    <title>App shell</title>
+    <style>
+      html,
+      body {
+        height: 100%;
+        overflow: hidden;
+      }
+      .top {
+        height: 56px;
+        background: #222;
+        color: #fff;
+      }
+      .wrap {
+        display: flex;
+        height: calc(100% - 56px);
+      }
+      .side {
+        width: 200px;
+        background: #333;
+      }
+      #main {
+        flex: 1;
+        overflow: auto;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="top">App header</div>
+    <div class="wrap">
+      <div class="side"></div>
+      <div id="main"></div>
+    </div>
+    <script>
+      renderBands(main, 0, 40);
+    </script>
+  </body>
+</html>

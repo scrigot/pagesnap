@@ -1,0 +1,45 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <script src="bands.js"></script>
+    <style>
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+    <title>Wide</title>
+    <style>
+      .row {
+        display: flex;
+        width: 2400px;
+      }
+      .cell {
+        width: 200px;
+        height: 100px;
+        flex: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="c"></div>
+    <script>
+      // 30 rows x 12 columns; cell (r,k) uses bandColor(r*12+k).
+      for (let r = 0; r < 30; r++) {
+        const row = document.createElement('div');
+        row.className = 'row';
+        for (let k = 0; k < 12; k++) {
+          const d = document.createElement('div');
+          d.className = 'cell';
+          const [R, G, B] = bandColor(r * 12 + k);
+          d.style.background = 'rgb(' + R + ',' + G + ',' + B + ')';
+          row.appendChild(d);
+        }
+        c.appendChild(row);
+      }
+    </script>
+  </body>
+</html>
