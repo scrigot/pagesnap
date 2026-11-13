@@ -1,0 +1,17 @@
+{
+  "description": "Deterministic fixtures used by npm run bench (tests/fixtures). Geometry is known exactly.",
+  "fixtures": {
+    "short": { "bands": 3, "offsetCss": 0, "expect": "single frame" },
+    "long": { "bands": 60, "offsetCss": 0, "expect": "pixel-identical to CDP full-page" },
+    "sticky": { "bands": 50, "offsetCss": 60, "expect": "magenta header exactly once at top" },
+    "fixed": { "bands": 50, "offsetCss": 50, "expect": "cyan header exactly once at top" },
+    "dynamic": { "bands": 60, "offsetCss": 0, "expect": "follows growth from 20 to 60 bands" },
+    "inner-scroll": {
+      "bands": 40,
+      "offsetCss": 0,
+      "expect": "inner panel captured, app chrome excluded"
+    },
+    "wide": { "grid": "30x12 cells of 200x100", "expect": "2-D capture, every cell correct" },
+    "lazy-images": { "images": 12, "expect": "no unloaded (white) image area" }
+  }
+}

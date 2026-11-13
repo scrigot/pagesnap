@@ -1,0 +1,123 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/scrigot/pagesnap/research/schemas/context-bundle.schema.json",
+  "title": "PageSnap context bundle (draft v0)",
+  "description": "DRAFT for ROADMAP M5. Not produced by the extension yet. Describes a page capture plus optional structured context for AI assistants. Everything optional is off by default and is exported only on explicit user action.",
+  "type": "object",
+  "required": ["schemaVersion", "createdAt", "page", "capture", "images"],
+  "additionalProperties": false,
+  "properties": {
+    "schemaVersion": { "const": "0.1-draft" },
+    "createdAt": { "type": "string", "format": "date-time" },
+    "generator": { "type": "string", "description": "e.g. pagesnap/0.2.0" },
+    "page": {
+      "type": "object",
+      "required": ["url", "title"],
+      "additionalProperties": false,
+      "properties": {
+        "url": {
+          "type": "string",
+          "description": "May be reduced to origin when the user chooses"
+        },
+        "title": { "type": "string" },
+        "lang": { "type": "string" }
+      }
+    },
+    "capture": {
+      "type": "object",
+      "required": ["viewport", "document", "devicePixelRatio", "target", "warnings"],
+      "additionalProperties": false,
+      "properties": {
+        "viewport": { "$ref": "#/$defs/size" },
+        "document": { "$ref": "#/$defs/size" },
+        "devicePixelRatio": { "type": "number", "exclusiveMinimum": 0 },
+        "outputScale": { "type": "number", "exclusiveMinimum": 0 },
+        "target": { "enum": ["document", "element", "region"] },
+        "frames": { "type": "integer", "minimum": 1 },
+        "durationMs": { "type": "integer", "minimum": 0 },
+        "truncated": { "type": "boolean" },
+        "downscaled": { "type": "boolean" },
+        "warnings": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "images": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["path", "mime", "width", "height", "bytes"],
+        "additionalProperties": false,
+        "properties": {
+          "path": { "type": "string", "description": "Relative path inside the bundle" },
+          "mime": { "enum": ["image/png", "image/webp", "image/jpeg"] },
+          "width": { "type": "integer" },
+          "height": { "type": "integer" },
+          "bytes": { "type": "integer" },
+          "cssOffsetY": {
+            "type": "number",
+            "description": "For tiled exports: where this tile starts in page CSS px"
+          },
+          "sha256": { "type": "string" }
+        }
+      }
+    },
+    "text": {
+      "type": "object",
+      "description": "Optional. innerText of the capture target after redaction.",
+      "additionalProperties": false,
+      "properties": {
+        "content": { "type": "string" },
+        "truncated": { "type": "boolean" }
+      }
+    },
+    "accessibility": {
+      "type": "array",
+      "description": "Optional sanitized accessibility tree: roles, names, levels, and bounding boxes. Never input values.",
+      "items": {
+        "type": "object",
+        "required": ["role"],
+        "additionalProperties": false,
+        "properties": {
+          "role": { "type": "string" },
+          "name": { "type": "string" },
+          "level": { "type": "integer" },
+          "box": { "$ref": "#/$defs/rect" },
+          "children": { "type": "array", "items": { "$ref": "#/properties/accessibility/items" } }
+        }
+      }
+    },
+    "redactions": {
+      "type": "array",
+      "description": "What was removed before export, so consumers know content is missing.",
+      "items": {
+        "type": "object",
+        "required": ["kind"],
+        "additionalProperties": false,
+        "properties": {
+          "kind": { "enum": ["email", "phone", "digits", "user-region", "other"] },
+          "box": { "$ref": "#/$defs/rect" },
+          "count": { "type": "integer" }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "size": {
+      "type": "object",
+      "required": ["width", "height"],
+      "additionalProperties": false,
+      "properties": { "width": { "type": "number" }, "height": { "type": "number" } }
+    },
+    "rect": {
+      "type": "object",
+      "required": ["x", "y", "width", "height"],
+      "additionalProperties": false,
+      "properties": {
+        "x": { "type": "number" },
+        "y": { "type": "number" },
+        "width": { "type": "number" },
+        "height": { "type": "number" }
+      }
+    }
+  }
+}
