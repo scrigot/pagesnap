@@ -27,7 +27,7 @@ jobs:
       - run: npm run format:check
       - run: npm test
       - run: npm run build
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         with:
           name: pagesnap-dist
           path: dist/
@@ -46,7 +46,7 @@ jobs:
       - run: npm run build
       - run: npm run test:e2e
       - if: failure()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: e2e-captures
           path: test-results/
