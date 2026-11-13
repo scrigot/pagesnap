@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>PageSnap</title>
+    <link rel="stylesheet" href="../styles/base.css" />
+    <link rel="stylesheet" href="./popup.css" />
+  </head>
+  <body>
+    <div class="shell" id="shell" data-phase="idle">
+      <header>
+        <div class="brand">
+          <img src="/icons/icon-32.png" width="16" height="16" alt="" />
+          <span>PageSnap</span>
+        </div>
+        <button class="icon-btn" id="settings" title="Settings (S)" aria-label="Settings">
+          <svg
+            width="14"
+            height="14"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            aria-hidden="true"
+          >
+            <circle cx="12" cy="12" r="3" />
+            <path
+              d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"
+            />
+          </svg>
+        </button>
+      </header>
+
+      <section class="status" role="status" aria-live="polite">
+        <div class="status-row">
+          <span class="dot" aria-hidden="true"></span>
+          <span id="title">Ready</span>
+          <span id="meta" class="meta"></span>
+        </div>
+        <div class="progress" aria-hidden="true"><div class="bar" id="bar"></div></div>
+        <p id="detail" class="detail"></p>
+        <ul id="warnings" class="warnings"></ul>
+      </section>
+
+      <figure class="preview" id="preview" hidden>
+        <img id="preview-img" alt="Captured page preview" />
+      </figure>
+
+      <div class="actions" id="actions">
+        <button class="btn primary" id="capture">Capture page <kbd>↵</kbd></button>
+        <button class="btn" id="copy" hidden>Copy <kbd>C</kbd></button>
+        <button class="btn" id="download" hidden>Download <kbd>D</kbd></button>
+        <button class="btn" id="cancel" hidden>Cancel <kbd>Esc</kbd></button>
+      </div>
+
+      <footer>
+        <span id="shortcut-hint">Shortcut: <kbd id="shortcut">not set</kbd></span>
+        <span class="faint">Local only</span>
+      </footer>
+    </div>
+    <script type="module" src="./popup.ts"></script>
+  </body>
+</html>

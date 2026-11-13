@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>PageSnap Settings</title>
+    <link rel="stylesheet" href="../styles/base.css" />
+    <link rel="stylesheet" href="./options.css" />
+  </head>
+  <body>
+    <div class="page">
+      <header class="top">
+        <div class="brand">
+          <img src="/icons/icon-32.png" width="18" height="18" alt="" /> PageSnap
+          <span class="faint" id="version"></span>
+        </div>
+        <span class="saved" id="saved" aria-live="polite"></span>
+      </header>
+
+      <main class="grid">
+        <section class="card">
+          <h2>Capture</h2>
+          <label class="row"
+            ><span
+              ><b>Start on open</b
+              ><small>Toolbar click or shortcut captures immediately.</small></span
+            ><input type="checkbox" data-key="autoStart"
+          /></label>
+          <label class="row"
+            ><span
+              ><b>Copy to clipboard</b
+              ><small>Copy the PNG as soon as capture finishes.</small></span
+            ><input type="checkbox" data-key="autoCopy"
+          /></label>
+          <label class="row"
+            ><span
+              ><b>Also download</b
+              ><small
+                >Save to your Downloads folder. Asks for the downloads permission.</small
+              ></span
+            ><input type="checkbox" data-key="autoDownload"
+          /></label>
+          <label class="row"
+            ><span
+              ><b>Close popup after copy</b
+              ><small>Dismiss the popup once the image is on the clipboard.</small></span
+            ><input type="checkbox" data-key="closePopupAfterCopy"
+          /></label>
+          <label class="row"
+            ><span><b>Toolbar badge</b><small>Show progress and result on the icon.</small></span
+            ><input type="checkbox" data-key="badge"
+          /></label>
+          <label class="row"
+            ><span
+              ><b>Format</b
+              ><small>PNG is lossless and pastes everywhere images are accepted.</small></span
+            ><select disabled>
+              <option>PNG</option>
+            </select></label
+          >
+        </section>
+
+        <section class="card">
+          <h2>Page handling</h2>
+          <label class="row"
+            ><span
+              ><b>Delay per frame</b
+              ><small
+                >Extra wait after each scroll for slow animations. Visible images are awaited
+                automatically.</small
+              ></span
+            ><span class="num"
+              ><input type="number" min="0" max="5000" step="50" data-key="captureDelayMs" /><i
+                >ms</i
+              ></span
+            ></label
+          >
+          <label class="row"
+            ><span
+              ><b>Maximum capture height</b
+              ><small>Stops infinite-scroll pages. The popup says when a page was cut.</small></span
+            ><span class="num"
+              ><input
+                type="number"
+                min="1000"
+                max="200000"
+                step="1000"
+                data-key="maxCaptureHeight"
+              /><i>px</i></span
+            ></label
+          >
+          <label class="row"
+            ><span
+              ><b>Oversized output</b
+              ><small>When the image exceeds Chrome's canvas limits (~32k px).</small></span
+            >
+            <select data-key="oversizeStrategy">
+              <option value="downscale">Downscale to fit</option>
+              <option value="truncate">Keep resolution, cut height</option>
+            </select></label
+          >
+          <label class="row"
+            ><span
+              ><b>Show fixed elements once</b
+              ><small>Hide fixed headers and banners after the first frame.</small></span
+            ><input type="checkbox" data-key="hideFixedAfterFirst"
+          /></label>
+          <label class="row"
+            ><span
+              ><b>Unstick sticky elements</b
+              ><small>Render sticky headers in place instead of repeating them.</small></span
+            ><input type="checkbox" data-key="flattenSticky"
+          /></label>
+        </section>
+
+        <section class="card">
+          <h2>Keyboard</h2>
+          <div class="row">
+            <span><b>Capture page</b><small>Opens PageSnap and starts capture.</small></span
+            ><kbd id="shortcut">not set</kbd>
+          </div>
+          <div class="row">
+            <span
+              ><b>Change shortcut</b
+              ><small
+                >Chrome manages extension shortcuts. Open chrome://extensions/shortcuts, find
+                PageSnap, click the pencil next to "Activate the extension", and press a new key
+                combination.</small
+              ></span
+            ><button class="btn" id="open-shortcuts">Open</button>
+          </div>
+          <table class="keys">
+            <tr>
+              <td><kbd>↵</kbd></td>
+              <td>Capture</td>
+              <td><kbd>C</kbd></td>
+              <td>Copy again</td>
+            </tr>
+            <tr>
+              <td><kbd>R</kbd></td>
+              <td>Recapture</td>
+              <td><kbd>D</kbd></td>
+              <td>Download</td>
+            </tr>
+            <tr>
+              <td><kbd>Esc</kbd></td>
+              <td>Cancel / close</td>
+              <td><kbd>S</kbd></td>
+              <td>Settings</td>
+            </tr>
+          </table>
+        </section>
+
+        <section class="card">
+          <h2>Privacy and permissions</h2>
+          <ul class="perms">
+            <li>
+              <code>activeTab</code> Access the current tab only after you click PageSnap or press
+              its shortcut.
+            </li>
+            <li><code>scripting</code> Inject the measuring and scrolling helper into that tab.</li>
+            <li><code>clipboardWrite</code> Put the PNG on the clipboard.</li>
+            <li><code>storage</code> Save these settings (synced by Chrome if sync is on).</li>
+            <li><code>downloads</code> Optional, only if "Also download" is on.</li>
+          </ul>
+          <p class="note">
+            Screenshots never leave this device. No analytics, no network requests, no accounts. The
+            latest capture is kept in local extension storage so you can copy it again.
+          </p>
+        </section>
+
+        <section class="card wide">
+          <h2>
+            Diagnostics <button class="btn small" id="copy-diag">Copy log</button>
+            <button class="btn small" id="refresh-diag">Refresh</button>
+          </h2>
+          <pre id="diag" class="diag">Loading…</pre>
+        </section>
+      </main>
+    </div>
+    <script type="module" src="./options.ts"></script>
+  </body>
+</html>
